@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동아멘토링 34기 동고동락 워크숍 만족도 설문 결과 보고서</title>
+    <!-- Pretendard 폰트 적용 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fdf4ff 50%, #fef3c7 100%);
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            padding: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* 보고서 헤더 영역 */
+        .report-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        /* 보고서 요약 정보 박스 */
+        .report-meta-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* 카드 섹션 스타일 */
+        .card-section {
+            background: #f9fafb;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid #f3f4f6;
+            margin-bottom: 24px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #059669;
+            background: #ecfdf5;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .section-tag.subjective {
+            color: #d97706;
+            background: #fffbeb;
+        }
+
+        .section-tag.ranking {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .section-tag.effect {
+            color: #7c3aed;
+            background: #f5f3ff;
+        }
+
+        .section-tag.nps {
+            color: #0284c7;
+            background: #e0f2fe;
+        }
+
+        .question-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .question-info {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 24px;
+        }
+
+        /* 만족도 점수 강조 박스 */
+        .score-box {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 28px;
+        }
+
+        .score-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #4f46e5;
+            line-height: 1;
+        }
+
+        .score-max {
+            font-size: 16px;
+            font-weight: 500;
+            color: #9ca3af;
+        }
+
+        .score-label {
+            margin-left: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #059669;
+            background: #ecfdf5;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        /* 운영 효과 문항용 컴팩트 스코어 카드 스타일 */
+        .effect-card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .effect-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .effect-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .effect-question {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.4;
+        }
+
+        .effect-meta {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .effect-score-display {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            background: #f5f3ff;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid #ddd6fe;
+            white-space: nowrap;
+        }
+
+        .effect-score-num {
+            font-size: 24px;
+            font-weight: 800;
+            color: #7c3aed;
+            line-height: 1;
+        }
+
+        .effect-score-max {
+            font-size: 13px;
+            font-weight: 600;
+            color: #a78bfa;
+        }
+
+        /* 통계 그래프 세부 디자인 */
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #4f46e5;
+            border-radius: 5px;
+        }
+
+        .bar-fill.zero {
+            background: #d1d5db;
+        }
+
+        /* 주관식 답변 스크롤 테이블 스타일 */
+        .scrollable-table-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            max-height: 320px;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .answer-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .answer-table th {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .answer-table td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+            line-height: 1.6;
+            white-space: pre-line; /* 줄바꿈 반영 */
+        }
+
+        .answer-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .answer-table tr:hover {
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 보고서 헤더 -->
+        <span class="report-badge">설문 결과 보고서</span>
+        <h1>동아멘토링 34기 동고동락 워크숍 만족도 조사</h1>
+
+        <!-- 요약 정보 카드 -->
+        <div class="report-meta-box">
+            <div class="meta-item">
+                <span class="meta-label">참여 현황</span>
+                <span class="meta-value">전체 44명 중 30명 참여</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">응답률</span>
+                <span class="meta-value">68.2%</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">설문 방식</span>
+                <span class="meta-value">익명 설문</span>
+            </div>
+        </div>
+
+        <!-- 1번 문항: 객관식 만족도 -->
+        <div class="card-section">
+            <span class="section-tag">문항 1 분석</span>
+            
+            <div class="question-title">
+                1. 오늘 진행된 ‘동아멘토링 34기 동고동락 워크숍’에 대해 전반적으로 얼마나 만족하셨나요?
+            </div>
+            <div class="question-info">
+                척도형 (5점 만점) &bull; 답변필수 &bull; 응답: 30명 / 무응답: 0명
+            </div>
+
+            <div class="score-box">
+                <div class="score-number">4.73</div>
+                <div class="score-max">/ 5.0</div>
+                <div class="score-label">종합 평균</div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span>5점 (매우 만족)</span>
+                        <span style="font-weight: 600; color: #111827;">23명 (76.7%)</span>
+                    </div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 76.7%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span>4점 (만족)</span>
+                        <span style="font-weight: 600; color: #111827;">7명 (23.3%)</span>
+                    </div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 23.3%; background: #818cf8;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">3점 (보통)</span><span style="color: #9ca3af;">0명 (0.0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">2점 (불만족)</span><span style="color: #9ca3af;">0명 (0.0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">1점 (매우 불만족)</span><span style="color: #9ca3af;">0명 (0.0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2번 문항: 주관식 사유 작성 (업데이트된 원본 반영) -->
+        <div class="card-section">
+            <span class="section-tag subjective">문항 2 분석</span>
+            
+            <div class="question-title">
+                2. 위에서 선택하신 만족도 수준의 이유를 간단히 작성해주세요.
+            </div>
+            <div class="question-info">
+                주관식 짧은 답변 &bull; 답변필수 &bull; 응답: 30명 / 무응답: 0명
+            </div>
+
+            <div class="scrollable-table-wrapper">
+                <table class="answer-table">
+                    <thead><tr><th>참여 의견 (주관식 답변 내용)</th></tr></thead>
+                    <tbody>
+                        <tr><td>의미 있는 활동</td></tr>
+                        <tr><td>쉽게 경험해 볼 수 있는 기회 경험. 장애인 인식개선</td></tr>
+                        <tr><td>일정 구성이 좋았음</td></tr>
+                        <tr><td>평소 만나뵙기 어려운 장애인 분들과의 활동, 커뮤니케이션이 뜻깊었습니다.</td></tr>
+                        <tr><td>사회공헌활동에 참여하여 뜻깊은 하루였습니다.</td></tr>
+                        <tr><td>보람찼다</td></tr>
+                        <tr><td>날씨가 너무 춥고 인원배정이 불공정해요</td></tr>
+                        <tr><td>장애인분들과 함께 활동하면서 뜻깊은 시간을 보낸거 같아서 좋습니다!</td></tr>
+                        <tr><td>체계적이고 인원에 대한 배려가 좋았습니다</td></tr>
+                        <tr><td>활동은 좋은데 일정이 너무 타이트해요</td></tr>
+                        <tr><td>색다른 체험</td></tr>
+                        <tr><td>프로그램 완성도도 높고 의의가 잘 느껴져서 참여하는 입장에서도 보람찼습니다!</td></tr>
+                        <tr><td>뜻깊은 시간이었다</td></tr>
+                        <tr><td>뜻깊고 새로운 경험이었습니다.</td></tr>
+                        <tr><td>학창 시절 학생회 활동을 하며 배리어프리 등 장애인 인권 증진을 위해 노력해 왔다고 생각했지만, 정작 장애인분들과 직접 교류하며 봉사할 기회는 없었습니다.이번 멘토링을 통해 직접 소통하고 함께 활동하면서 장애인에 대한 이해를 넓힐 수 있었고, 앞으로도 작은 실천부터 이어가야겠다고 생각했습니다.이처럼 뜻깊은 경험을 할 수 있도록 기회를 마련해 주신 동아와 동대문장애인종합복지관에 감사드립니다.</td></tr>
+                        <tr><td>장애인을 실제로 가까이에서 이해하고 생각도 못했던 봉사 경험을 해볼수 있는 시간이었습니다.</td></tr>
+                        <tr><td>재미</td></tr>
+                        <tr><td>생각한거보다 재미있았음</td></tr>
+                        <tr><td>특별한 경험을 할수있었다.</td></tr>
+                        <tr><td>장애인분들과 소통하며 함께 즐거운 시간을 보낼 수 있었고 보람도 느꼈어요</td></tr>
+                        <tr><td>체계적인 프로그램</td></tr>
+                        <tr><td>의미있는 시간 프로그램 완성도</td></tr>
+                        <tr><td>이제껏 해보지못한 좋은경험이었습니다.</td></tr>
+                        <tr><td>재미있게 봉사할 수 있어서 만족합니다.</td></tr>
+                        <tr><td>일상에서 벗어나서 새로운 사람들과 색다른 경험을 할 수 있음에 감사합니다</td></tr>
+                        <tr><td>의미있는 시간이었습니다</td></tr>
+                        <tr><td>즐거운 추억을 만들었음</td></tr>
+                        <tr><td>좋아요</td></tr>
+                        <tr><td>뜻 깊은 행사와 알찬 구성 및 만족도</td></tr>
+                        <tr><td>유익한 시간</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3번 문항: 순위형 만족 항목 조사 -->
+        <div class="card-section">
+            <span class="section-tag ranking">문항 3 분석</span>
+            
+            <div class="question-title">
+                3. 이번 활동에서 가장 만족스러웠던 부분을 1위부터 3위까지 선택해주세요.
+            </div>
+            <div class="question-info">
+                순위형 &bull; 답변필수 &bull; 응답: 30명 / 무응답: 0명 (누적 가중치 기준)
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-row">
+                    <div class="stat-item"><span>사회공헌활동 참여 기회</span><span style="font-weight: 600; color: #111827;">55점</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>장애인 인식 개선</span><span style="font-weight: 600; color: #111827;">43점</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 78.2%; background: #3b82f6;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>멘토-멘티 또는 동료간의 교류</span><span style="font-weight: 600; color: #111827;">43점</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 78.2%; background: #3b82f6;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>프로그램 장소(에버랜드)</span><span style="font-weight: 600; color: #111827;">20점</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 36.4%; background: #60a5fa;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>프로그램 구성(거점 게임, 미션 수행 등)</span><span style="font-weight: 600; color: #111827;">7점</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 12.7%; background: #93c5fd;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">기타</span><span style="color: #9ca3af;">0점</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4~8번 문항: 운영 효과 관련 설문 (평균 점수 스코어 카드) -->
+        <div class="card-section">
+            <span class="section-tag effect">문항 4 ~ 8 분석 (운영 효과)</span>
+            
+            <div class="question-title">주요 운영 효과 및 성과 평가지표</div>
+            <div class="question-info">척도형 (5점 만점) &bull; 답변필수 &bull; 응답: 30명 / 무응답: 0명</div>
+
+            <div class="effect-card-grid">
+                <div class="effect-card">
+                    <div class="effect-info">
+                        <div class="effect-question">4. 이번 활동이 장애 인식 개선에 도움이 되었다고 생각하시나요?</div>
+                        <div class="effect-meta">척도형 &bull; 응답 30명</div>
+                    </div>
+                    <div class="effect-score-display">
+                        <span class="effect-score-num">4.63</span><span class="effect-score-max">/ 5.0</span>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-info">
+                        <div class="effect-question">5. 이번 활동이 회사에 대한 소속감을 높이는 데 도움이 되었습니까?</div>
+                        <div class="effect-meta">척도형 &bull; 응답 30명</div>
+                    </div>
+                    <div class="effect-score-display">
+                        <span class="effect-score-num">4.50</span><span class="effect-score-max">/ 5.0</span>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-info">
+                        <div class="effect-question">6. 이번 활동을 통해 지역사회에 긍정적인 기여를 했다고 느꼈습니까?</div>
+                        <div class="effect-meta">척도형 &bull; 응답 30명</div>
+                    </div>
+                    <div class="effect-score-display">
+                        <span class="effect-score-num">4.70</span><span class="effect-score-max">/ 5.0</span>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-info">
+                        <div class="effect-question">7. 이번 활동에서 개인적으로 보람이나 성취감을 느꼈습니까?</div>
+                        <div class="effect-meta">척도형 &bull; 응답 30명</div>
+                    </div>
+                    <div class="effect-score-display">
+                        <span class="effect-score-num">4.70</span><span class="effect-score-max">/ 5.0</span>
+                    </div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-info">
+                        <div class="effect-question">8. 이번 활동이 멘토·멘티 또는 동료 간 교류와 소통에 긍정적인 영향을 주었다고 생각하시나요?</div>
+                        <div class="effect-meta">척도형 &bull; 응답 30명</div>
+                    </div>
+                    <div class="effect-score-display">
+                        <span class="effect-score-num">4.57</span><span class="effect-score-max">/ 5.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10번 문항: 순추천지수(NPS) 그래프 -->
+        <div class="card-section">
+            <span class="section-tag nps">문항 10 분석</span>
+            
+            <div class="question-title">
+                10. ‘동고동락 워크숍’을 다른 동료나 멘토/멘티에게 추천하시겠습니까?
+            </div>
+            <div class="question-info">
+                순추천지수 (NPS®) &bull; 답변필수 &bull; 응답: 30명 / 무응답: 0명
+            </div>
+
+            <div class="score-box">
+                <div class="score-number" style="font-size: 30px;">NPS 60.0, 평균 8.77</div>
+                <div class="score-max">/ 10.0</div>
+                <div class="score-label" style="background: #e0f2fe; color: #0284c7;">추천 지수 우수</div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">0.0점</span><span style="color: #9ca3af;">0명 (0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">1.0점</span><span style="color: #9ca3af;">0명 (0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>2.0점</span><span>1명 (3.3%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 3.3%; background: #93c5fd;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>3.0점</span><span>1명 (3.3%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 3.3%; background: #93c5fd;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">4.0점</span><span style="color: #9ca3af;">0명 (0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>5.0점</span><span>1명 (3.3%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 3.3%; background: #93c5fd;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">6.0점</span><span style="color: #9ca3af;">0명 (0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span style="color: #9ca3af;">7.0점</span><span style="color: #9ca3af;">0명 (0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill zero" style="width: 0%;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>8.0점</span><span style="font-weight: 600; color: #111827;">6명 (20.0%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 20%; background: #60a5fa;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>9.0점</span><span style="font-weight: 600; color: #111827;">5명 (16.7%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 16.7%; background: #3b82f6;"></div></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-item"><span>10.0점 (매우 추천)</span><span style="font-weight: 600; color: #111827;">16명 (53.3%)</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 53.3%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11번 문항: 주관식 긴 답변 (업데이트된 원본 반영) -->
+        <div class="card-section">
+            <span class="section-tag subjective">문항 11 분석</span>
+            
+            <div class="question-title">
+                11. ‘동고동락 워크숍’을 통해 느낀 점이나 기억에 남는 순간을 자유롭게 작성해주세요.
+            </div>
+            <div class="question-info">
+                주관식 긴 답변 &bull; 응답: 18명, 무응답: 12명 (총 30명)
+            </div>
+
+            <div class="scrollable-table-wrapper">
+                <table class="answer-table">
+                    <thead><tr><th>참여 소감 및 기억에 남는 순간 (답변 내용)</th></tr></thead>
+                    <tbody>
+                        <tr><td>내년에는 또 와달라고 말씀해주시는 순간이 기억에 남습니다.</td></tr>
+                        <tr><td>미션 수행하면서 장애인과 유대감을 쌓았을때</td></tr>
+                        <tr><td>처음보다 조금 교류가 생기고 친밀감이 생긴 후, 눈맞춤을 더 잘 해주시던 장애인분들과 눈을 마주할 때 감동이 있었습니다.
+함께한 멘토멘티와 저의 멘토님과 함께 힘을 합쳐 휠체어를 밀고, 소통을 위해 힘쓴 장면이 기억에 남습니다.</td></tr>
+                        <tr><td>장애인분들이 즐거워하시는 모습을 보며 함께 즐거웠습니다.</td></tr>
+                        <tr><td>조원분들과 한마음 한 뜻으로 열심히 활동해서 일등을 할 수 있었습니다!</td></tr>
+                        <tr><td>재밌었어요. 다만 걷는걸 힘들어하는 장애인이 활동하기엔 다소 무리같아 보였어요</td></tr>
+                        <tr><td>장애인에 대한 편견과 선입견을 없앨수있었던, 내가 알고 있었던 장애인에 대한 인식 개선을 할 수 있었던 기회</td></tr>
+                        <tr><td>지애씨와 한솔씨와 유대감을 쌓아가는 과정이 기억에 남습니다. 처음에는 정말 조심스러웠는데, 그들도 일을 하며 사회를 살아가는 평범한 사람 중 하나라는 것을 다시금 깨달았습니다. 고민하는 것도 비슷하고, 인생에 대한 고민도 같이 나누며 행복했습니다. 또, 지애씨가 저에게 직접 만드신 비즈팔찌를 주셨는데 영원히 차고 다닐 것 같아요.</td></tr>
+                        <tr><td>개인적으로 생각만해보고 실천해보지 못했던 일들이었는데 사회공헌활동을 통해 경험하며 스스로에게도 좋은 기회였다고 느꼈습니다.</td></tr>
+                        <tr><td>혜선님, 바름님 함께해서 즐거운 시간이었습니다 행복하세요!</td></tr>
+                        <tr><td>오랜만에 놀이공원에 와서 걱정없이 순수하게 즐거운 시간을 보내서 너무 좋았어요</td></tr>
+                        <tr><td>장애인 인식 개선에 큰 도움을 줌</td></tr>
+                        <tr><td>우리는 살면서 장애인이라는 존재를 잘 인식하고있지 못하는 경우가 많다고생각합니다. 하지만 확실히 그들과 눈높이를 맞추고 소통하면서 이 사회 전체에서 장애인들과 함께 더불어 살아가기위해 수많은 분들이 노력하고 계신다는 것을알 게 되었고, 우리 모두 조금의 노력으로 더 나은 사회를 만들어가면 좋겠다 고 생각했습니다.</td></tr>
+                        <tr><td>시상식에 지각했지만 장애인분께서 원하시던 놀이기구를 꼭 타고 마무리할 수 있어서 좋았고 만족하시는 모습이 기억에 남습니다.</td></tr>
+                        <tr><td>처음에 장애인 분들과 만났을때 어색해서 오늘 하루 잘 지낼 수 있을까 걱정을 많아 했는데 끝날때는 놀이기구와 미션을 통해 많이 친해져서 헤어지기 아쉬웠습니다</td></tr>
+                        <tr><td>장애인분들과 함께 미션하는 순간이 기억에 남습니다</td></tr>
+                        <tr><td>놀이동산에서 멘토 멘티 그리고 장애인 친구들과 즐겁게 투어하며 기구 탔을때</td></tr>
+                        <tr><td>보람찬 활동에 하루 전체가 기억에 남습니다!</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 12번 문항: 주관식 긴 답변 (업데이트된 원본 반영) -->
+        <div class="card-section">
+            <span class="section-tag subjective">문항 12 분석</span>
+            
+            <div class="question-title">
+                12. 이번 워크숍에서 개선이 필요하다고 생각되는 부분을 자유롭게 작성해주세요.
+            </div>
+            <div class="question-info">
+                주관식 긴 답변 &bull; 응답: 16명, 무응답: 14명 (총 30명)
+            </div>
+
+            <div class="scrollable-table-wrapper">
+                <table class="answer-table">
+                    <thead><tr><th>개선 의견 및 건의사항 (답변 내용)</th></tr></thead>
+                    <tbody>
+                        <tr><td>날씨를 고려하여 일정을 정한다면 더 좋을 것 같습니다.</td></tr>
+                        <tr><td>이동시간이 다소 길어서 조금더 가까운 롯데월드나 이런데서 해도 좋을것 같습니다</td></tr>
+                        <tr><td>너무 막히던 금요일 귀갓길... 다른 요일로 잡혔다면 더 좋았겠다는 생각이 듭니다!</td></tr>
+                        <tr><td>거리적으로 멀어서 부담을 느끼는 사람들이 있기도 하고, 야외활동의 특성상 기상 상황에 따른 운영 변동 가능성이 높다는 점에서 해당 부분에 대한 개선 및 보완이 필요하다고 생각합니다.</td></tr>
+                        <tr><td>미션이 너무 많습니다. 너무 추운날에 행사를 진행하여 좀 더 따뜻한 날 행사를 진행했으면 좋겠습니다.</td></tr>
+                        <tr><td>없습니다.</td></tr>
+                        <tr><td>동대문 &lt;-&gt; 용인 사이에 거리가 너무 멀어요. 비효율적으로 왔다갔다 하는 시간이 너무 아깝습니다. 동대문이 아닌 용인 근처 복지관이었으면 어땠을까 하네요.</td></tr>
+                        <tr><td>행사 시작을 복지관이 아닌 해당 장소에서 시작하면 더 좋을 것 같습니다.<br>이동동선이 너무 길었어요 ㅠㅠ</td></tr>
+                        <tr><td>없음</td></tr>
+                        <tr><td>없음</td></tr>
+                        <tr><td>없습니다.</td></tr>
+                        <tr><td>같은 조의 장애인분들이 서로 성향이 정반대라서 조율하기 어려운 부분이 있었습니다.</td></tr>
+                        <tr><td>없음</td></tr>
+                        <tr><td>없음</td></tr>
+                        <tr><td>10월에 했으면 좋았을거 같아요</td></tr>
+                        <tr><td>활동 너무 좋았습니다!</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
